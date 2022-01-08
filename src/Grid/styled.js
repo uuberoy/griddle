@@ -4,7 +4,7 @@ export const gridContainerClass = (columns, rows) => css`
   display: grid;
   grid-template: repeat(${columns}, 1fr) / repeat(${rows}, 1fr);
   background-color: #666;
-  border: 2px solid black;
+  border: 3px solid black;
   max-width: 650px;
   grid-gap: 1px;
 `;
