@@ -61,6 +61,9 @@ const Cell = forwardRef<HTMLDivElement, CellProps>((props, ref) => {
         break;
       case keyCode >= 65 && keyCode <= 90:
         setValue(key);
+        if (idx % rows !== rows - 1) {
+          setActiveCell(idx + 1);
+        }
     }
   };
 

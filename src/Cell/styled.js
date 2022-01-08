@@ -20,6 +20,7 @@ export const cellClass = css`
 
 export const selectedClass = css`
   background-color: #ffda00 !important;
+  outline: 1px solid #a7d8ff;
 `;
 
 export const filledClass = css`
@@ -28,10 +29,13 @@ export const filledClass = css`
 
 export const cellValueClass = css`
   font-size: 1.5rem;
+  font-family: 'Roboto Mono', monospace;
 `;
 
 export const clueNumberClass = css`
-  font-size: 8px;
+  font-size: 10px;
+  font-family: 'Roboto Slab', serif;
+  margin-left: 1px;
   position: absolute;
   top: 0;
 `;
