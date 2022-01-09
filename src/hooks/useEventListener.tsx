@@ -1,10 +1,11 @@
 import { useEffect, RefObject } from "react";
+import { computeClueNumbers } from "../utils/clueNumbers";
 
 const getSymmetricCell = (rows: number, cols: number, row: number, col: number): number => {
   return (Math.abs(rows - row - 1) * cols) + Math.abs(cols - col - 1);
 }
 
-const useEventListener = (setActiveCell: any, rows: number, cols: number, cellRefs: RefObject<HTMLDivElement>[], activeIdx?: number) => {
+const useEventListener = (setActiveCell: any, rows: number, cols: number, cellRefs: RefObject<HTMLDivElement>[], setClueNumbers: any, activeIdx?: number) => {
   useEffect(() => {
     const handleUserKeyPress = (event: any) => {
       if (activeIdx === undefined || activeIdx === null) return;
@@ -75,6 +76,8 @@ const useEventListener = (setActiveCell: any, rows: number, cols: number, cellRe
           }
       }
     };
+
+    setClueNumbers(computeClueNumbers(cellRefs, rows, cols));
     
     window.addEventListener("keydown", handleUserKeyPress);
     return () => {

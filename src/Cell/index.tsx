@@ -9,10 +9,11 @@ interface CellProps {
   rows: number;
   cols: number;
   value?: string;
+  clueNumber?: number;
 }
 
 const Cell = forwardRef<HTMLDivElement, CellProps>((props, ref) => {
-  const { idx, setActiveCell, activeIdx, value } = props;
+  const { idx, setActiveCell, activeIdx, value, clueNumber } = props;
 
   // todo: replace idx with clue number here:
   return (
@@ -26,7 +27,7 @@ const Cell = forwardRef<HTMLDivElement, CellProps>((props, ref) => {
       <div className={cellClass}>
         {value && <span className={cellValueClass}>{value.toUpperCase()}</span>}
       </div>
-      <span className={clueNumberClass}>{idx + 1}</span>
+      <span className={clueNumberClass}>{clueNumber || ""}</span>
     </div>
   );
 })

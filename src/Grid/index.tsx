@@ -1,7 +1,8 @@
 import { gridContainerClass } from "./styled";
 import Cell from '../Cell';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import useEventListener from "../hooks/useEventListener";
+import { computeClueNumbers } from "../utils/clueNumbers";
 
 interface GridProps {
   cols: number;
@@ -10,9 +11,15 @@ interface GridProps {
 
 const Grid = ({ cols, rows }: GridProps) => {
   const cellRefs = new Array(cols * rows).fill(0).map(() => useRef<HTMLDivElement>(null));
+  const [clueNumbers, setClueNumbers] = useState<number[]>();
   const [activeIdx, setActiveIdx] = useState<number>();
+
+  // set clue numbers on page load
+  useEffect(() => {
+    setClueNumbers(computeClueNumbers(cellRefs, rows, cols));
+  }, []);
   
-  useEventListener(setActiveIdx, rows, cols, cellRefs, activeIdx);
+  useEventListener(setActiveIdx, rows, cols, cellRefs, setClueNumbers, activeIdx);
 
   return (
     <div className={gridContainerClass(cols, rows)}>
@@ -26,6 +33,7 @@ const Grid = ({ cols, rows }: GridProps) => {
           cols={cols}
           activeIdx={activeIdx}
           value={cellRefs[idx]?.current?.getAttribute("data-value") || ""}
+          clueNumber={clueNumbers?.[idx] || 0}
         />
       )}
     </div>
