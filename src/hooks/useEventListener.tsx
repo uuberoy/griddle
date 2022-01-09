@@ -1,23 +1,21 @@
 import { useEffect, RefObject } from "react";
-// import { Direction } from "../types";
 
 const getSymmetricCell = (rows: number, cols: number, row: number, col: number): number => {
-  return Math.floor(((rows - row) * cols) + (cols - col) - 1);
+  return (Math.abs(rows - row - 1) * cols) + Math.abs(cols - col - 1);
 }
 
 const useEventListener = (setActiveCell: any, rows: number, cols: number, cellRefs: RefObject<HTMLDivElement>[], activeIdx?: number) => {
   useEffect(() => {
     const handleUserKeyPress = (event: any) => {
-      if (!activeIdx) return;
+      if (activeIdx === undefined || activeIdx === null) return;
 
-      const row = activeIdx / rows;
+      const row = Math.floor(activeIdx / rows);
       const col = activeIdx % rows;
 
       const activeRef = cellRefs[activeIdx];
       const symmetricRef = cellRefs[getSymmetricCell(rows, cols, row, col)];
 
       const filled = activeRef?.current?.getAttribute("data-filled");
-      console.log(filled, activeIdx);
       const value = activeRef?.current?.getAttribute("data-value");
 
       const { key, keyCode } = event;
@@ -25,8 +23,13 @@ const useEventListener = (setActiveCell: any, rows: number, cols: number, cellRe
       switch (true) {
         // period
         case keyCode === 190:
-          activeRef?.current?.setAttribute("data-filled", "true");
-          symmetricRef?.current?.setAttribute("data-filled", "true");
+          if (filled) {
+            delete activeRef?.current?.dataset.filled;
+            delete symmetricRef?.current?.dataset.filled;
+          } else {
+            activeRef?.current?.setAttribute("data-filled", "true");
+            symmetricRef?.current?.setAttribute("data-filled", "true");
+          }
           break;
         // delete
         case keyCode === 8:
@@ -62,8 +65,11 @@ const useEventListener = (setActiveCell: any, rows: number, cols: number, cellRe
             setActiveCell(activeIdx + rows);
           }
           break;
+        // letters
         case keyCode >= 65 && keyCode <= 90:
-          if (!filled) activeRef?.current?.setAttribute("data-value", key);
+          if (!filled) {
+            activeRef?.current?.setAttribute("data-value", key);
+          }
           if (col !== rows - 1) {
             setActiveCell(activeIdx + 1);
           }

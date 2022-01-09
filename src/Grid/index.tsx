@@ -11,7 +11,7 @@ interface GridProps {
 const Grid = ({ cols, rows }: GridProps) => {
   const cellRefs = new Array(cols * rows).fill(0).map(() => useRef<HTMLDivElement>(null));
   const [activeIdx, setActiveIdx] = useState<number>();
-
+  
   useEventListener(setActiveIdx, rows, cols, cellRefs, activeIdx);
 
   return (
@@ -25,6 +25,7 @@ const Grid = ({ cols, rows }: GridProps) => {
           rows={rows}
           cols={cols}
           activeIdx={activeIdx}
+          value={cellRefs[idx]?.current?.getAttribute("data-value") || ""}
         />
       )}
     </div>
