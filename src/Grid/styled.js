@@ -7,4 +7,5 @@ export const gridContainerClass = (columns, rows) => css`
   border: 3px solid black;
   max-width: 650px;
   grid-gap: 1px;
+  flex-grow: 2;
 `;
