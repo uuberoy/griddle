@@ -9,6 +9,10 @@ export const cellContainerClass = css`
     background: #eee;
     cursor: pointer;
   }
+
+  &[data-filled] {
+    background-color: black !important;
+  }
 `;
 
 export const cellClass = css`
@@ -21,10 +25,6 @@ export const cellClass = css`
 export const selectedClass = css`
   background-color: #ffda00 !important;
   outline: 1px solid #a7d8ff;
-`;
-
-export const filledClass = css`
-  background-color: black !important;
 `;
 
 export const cellValueClass = css`

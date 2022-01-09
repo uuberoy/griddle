@@ -6,7 +6,7 @@ function App() {
     <>
       <Nav />
       <div>
-        <Grid columns={15} rows={15} />
+        <Grid cols={15} rows={15} />
       </div>
     </>
   );
