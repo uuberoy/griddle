@@ -5,7 +5,14 @@ const getSymmetricCell = (rows: number, cols: number, row: number, col: number):
   return (Math.abs(rows - row - 1) * cols) + Math.abs(cols - col - 1);
 }
 
-const useEventListener = (setActiveCell: any, rows: number, cols: number, cellRefs: RefObject<HTMLDivElement>[], setClueNumbers: any, activeIdx?: number) => {
+const useEventListener = (
+  setActiveCell: any,
+  rows: number,
+  cols: number,
+  cellRefs: RefObject<HTMLDivElement>[],
+  setClueNumbers: any,
+  activeIdx?: number
+) => {
   useEffect(() => {
     const handleUserKeyPress = (event: any) => {
       if (activeIdx === undefined || activeIdx === null) return;
@@ -31,6 +38,7 @@ const useEventListener = (setActiveCell: any, rows: number, cols: number, cellRe
             activeRef?.current?.setAttribute("data-filled", "true");
             symmetricRef?.current?.setAttribute("data-filled", "true");
           }
+          setClueNumbers(computeClueNumbers(cellRefs, rows, cols));
           break;
         // delete
         case keyCode === 8:
@@ -41,6 +49,7 @@ const useEventListener = (setActiveCell: any, rows: number, cols: number, cellRe
             delete symmetricRef?.current?.dataset.filled;
             delete activeRef?.current?.dataset.value;
           }
+          setClueNumbers(computeClueNumbers(cellRefs, rows, cols));
           break;
         // left arrow
         case keyCode === 37:
@@ -76,8 +85,6 @@ const useEventListener = (setActiveCell: any, rows: number, cols: number, cellRe
           }
       }
     };
-
-    setClueNumbers(computeClueNumbers(cellRefs, rows, cols));
     
     window.addEventListener("keydown", handleUserKeyPress);
     return () => {

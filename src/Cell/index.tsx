@@ -15,7 +15,6 @@ interface CellProps {
 const Cell = forwardRef<HTMLDivElement, CellProps>((props, ref) => {
   const { idx, setActiveCell, activeIdx, value, clueNumber } = props;
 
-  // todo: replace idx with clue number here:
   return (
     <div
       className={cx(cellContainerClass, { [selectedClass]: activeIdx === idx })}

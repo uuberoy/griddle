@@ -19,14 +19,11 @@ export const computeClueNumbers = (cellRefs: RefObject<HTMLDivElement>[], rows: 
     // if the cell has a filled square / dead end on the left, give it a number
     if ((leftCell === null || leftCell?.current?.getAttribute("data-filled")) && !filled) {
       clueNumbers[idx] = clueIdx;
-      ref?.current?.setAttribute("data-clue-number", clueIdx.toString());
       clueIdx += 1;
     } else if ((topCell === null || topCell?.current?.getAttribute("data-filled")) && !filled) {
-      ref?.current?.setAttribute("data-clue-number", clueIdx.toString());
       clueNumbers[idx] = clueIdx;
       clueIdx += 1;
     } else {
-      delete ref?.current?.dataset.clueNumber;
       clueNumbers[idx] = 0;
     }
   })
