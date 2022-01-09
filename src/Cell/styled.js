@@ -13,6 +13,10 @@ export const cellContainerClass = css`
   &[data-filled] {
     background-color: black !important;
   }
+
+  &[data-highlighted] {
+    background-color: #a7d8ff;
+  }
 `;
 
 export const cellClass = css`
@@ -24,7 +28,7 @@ export const cellClass = css`
 
 export const selectedClass = css`
   background-color: #ffda00 !important;
-  outline: 1px solid #a7d8ff;
+  // outline: 1px solid #a7d8ff;
 `;
 
 export const cellValueClass = css`
